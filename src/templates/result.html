@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% else %}
+<p><strong>질문:</strong> {{ query }}</p>
+<p><strong>AI 응답:</strong> {{ result }}</p>
+{% endif %}
+<a href="/">돌아가기</a>
+{% endblock %}

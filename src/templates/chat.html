@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="chat-container">
+  <div class="chat-box" id="chatBox">
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.role == 'user' %}
+    <div class="message user-message">
+      <div class="message-content">{{ message.content }}</div>
+    </div>
+    {% else %}
+    <div class="message ai-message">
+      <div class="message-content">{{ message.content }}</div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% if error %}
+    <div class="error-message">{{ error }}</div>
+    {% endif %}
+  </div>
+
+  <form action="/api" method="post" class="chat-form" id="chatForm">
+    <input type="text" id="query" name="query" placeholder="메시지를 입력하세요" autocomplete="off">
+    <button type="submit">전송</button>
+  </form>
+
+  <div class="chat-actions">
+    <a href="/clear" class="clear-button">대화 초기화</a>
+  </div>
+</div>
+
+<script>
+  // 페이지 로드 시 실행
+  window.onload = function() {
+    // 채팅창 자동 스크롤
+    var chatBox = document.getElementById('chatBox');
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // 입력 필드에 포커스
+    document.getElementById('query').focus();
+
+    // 폼 제출 이벤트 리스너
+    document.getElementById('chatForm').addEventListener('submit', function() {
+      // 폼 제출 후 localStorage에 포커스 상태 저장
+      localStorage.setItem('focusInput', 'true');
+    });
+
+    // Enter 키로 폼 제출
+    document.getElementById('query').addEventListener('keydown', function(event) {
+      // Enter 키 누를 때 제출 (Shift+Enter는 제외)
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        document.getElementById('chatForm').submit();
+      }
+    });
+
+    // 페이지 로드 시 localStorage 확인하여 포커스 설정
+    if (localStorage.getItem('focusInput') === 'true') {
+      document.getElementById('query').focus();
+      localStorage.removeItem('focusInput');
+    }
+  }
+</script>
+{% endblock %}

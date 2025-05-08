@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/api" method="post">
+  <label for="query">질문:</label>
+  <input type="text" id="query" name="query" placeholder="질문을 입력하세요">
+  <button type="submit">전송</button>
+</form>
+{% endblock %}
