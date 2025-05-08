@@ -1,0 +1,18 @@
+{
+  "tools": [
+    {
+      "name": "get_weather",
+      "description": "Get weather information for a location",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "The location to get weather for"
+          }
+        },
+        "required": ["location"]
+      }
+    }
+  ]
+} 

@@ -1,0 +1,28 @@
+{
+    "mcp": {
+        "servers": [
+            {
+                "name": "weather_mcp",
+                "transport": "stdio",
+                "command": ["python", "src/run_mcp_server.py"],
+                "cwd": "${workspaceFolder}",
+                "tools": [
+                    {
+                        "name": "get_weather",
+                        "description": "Get weather information for a location",
+                        "parameters": {
+                            "type": "object",
+                            "properties": {
+                                "location": {
+                                    "type": "string",
+                                    "description": "The location to get weather for"
+                                }
+                            },
+                            "required": ["location"]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+} 
